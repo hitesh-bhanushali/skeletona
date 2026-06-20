@@ -1,0 +1,11 @@
+name = "skeletona"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+
+[assets]
+directory = "./landing/dist"
+binding = "ASSETS"
+
+[[kv_namespaces]]
+binding = "WAITLIST_KV"
+id = "7e8688ac15344e3486ed619410e10f43"

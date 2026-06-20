@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skeletona — AI-powered NEET preparation, coming soon</title>
+  <meta name="description" content="Skeletona is an AI-native medical exam prep platform combining adaptive learning, a conversational AI tutor, and a live question bank — built for NEET UG, NEET PG, INICET, FMGE, and beyond." />
+  <meta property="og:title" content="Skeletona — AI-powered NEET prep" />
+  <meta property="og:description" content="The AI-native way to crack NEET. Join the waitlist for early access." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:       #FAF7F2;
+      --warm-white:  #FFFFFF;
+      --stone-100:   #F5F1EA;
+      --stone-200:   #E8E2D8;
+      --stone-400:   #A89F8F;
+      --stone-600:   #6B6158;
+      --ink:         #1C1917;
+      --ink-soft:    #3C3730;
+      --teal:        #1A7A8A;
+      --teal-light:  #DFF0F3;
+      --teal-dark:   #0F5A68;
+      --sage:        #5B7A5E;
+      --sage-light:  #E8F0E8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--ink);
+      color: var(--cream);
+      padding: 0.5rem 1rem;
+      border-radius: 0 0 6px 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      z-index: 200;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* ── ANNOUNCEMENT BAR ── */
+    .announce-bar {
+      background: var(--ink);
+      color: var(--cream);
+      text-align: center;
+      padding: 0.6rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    .announce-bar strong { font-weight: 500; color: #7DD8E4; }
+    .announce-bar a { color: #7DD8E4; text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 5vw;
+      border-bottom: 1px solid var(--stone-200);
+      background: var(--cream);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .logo span { color: var(--teal); }
+    .logo:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .launch-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      letter-spacing: 0.01em;
+    }
+    .launch-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .btn-nav {
+      background: var(--ink);
+      color: var(--cream);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.5rem 1.1rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+      font-family: inherit;
+    }
+    .btn-nav:hover { background: var(--ink-soft); }
+
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem;
+      color: var(--ink);
+    }
+    .nav-hamburger svg { display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 5rem 5vw 4rem;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--sage-light);
+      color: var(--sage);
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.75rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 600;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--teal);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--stone-600);
+      max-width: 580px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── COUNTDOWN ── */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2.75rem;
+    }
+
+    .cd-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 64px;
+    }
+
+    .cd-num {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .cd-label {
+      font-size: 0.7rem;
+      color: var(--stone-400);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.3rem;
+      font-weight: 500;
+    }
+
+    .cd-sep {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 2rem;
+      color: var(--stone-200);
+      align-self: center;
+      margin-bottom: 1.2rem;
+      font-weight: 400;
+    }
+
+    /* ── WAITLIST FORM ── */
+    .waitlist-form-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .form-row input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1.5px solid var(--stone-200);
+      border-radius: 8px;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--warm-white);
+      transition: border-color 0.15s;
+      outline: none;
+    }
+    .form-row input::placeholder { color: var(--stone-400); }
+    .form-row input:focus { border-color: var(--teal); }
+
+    .btn-primary {
+      width: 100%;
+      padding: 0.9rem 1.5rem;
+      background: var(--teal);
+      color: var(--warm-white);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary:hover { background: var(--teal-dark); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .form-note {
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--stone-400);
+      text-align: center;
+    }
+
+    .form-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1.5rem;
+      background: var(--sage-light);
+      border-radius: 10px;
+      border: 1px solid #C5DBC7;
+    }
+    .form-success .success-icon {
+      font-size: 1.5rem;
+    }
+    .form-success strong {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1.1rem;
+      color: var(--ink);
+    }
+    .form-success p {
+      font-size: 0.9rem;
+      color: var(--stone-600);
+    }
+
+    .signup-count {
+      margin-top: 1.1rem;
+      font-size: 0.82rem;
+      color: var(--stone-500);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+    .signup-count::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--sage);
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      width: 48px;
+      height: 2px;
+      background: var(--stone-200);
+      margin: 0 auto;
+    }
+
+    /* ── SECTION SHARED ── */
+    section {
+      padding: 5rem 5vw;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 600;
+      text-align: center;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--stone-600);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto 3rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ── DIFFERENTIATORS ── */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .diff-card {
+      background: var(--warm-white);
+      border: 1px solid var(--stone-200);
+      border-radius: 14px;
+      padding: 2rem 1.75rem;
+    }
+
+    .diff-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--teal-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.25rem;
+    }
+
+    .diff-card h3 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .diff-card p {
+      font-size: 0.9rem;
+      color: var(--stone-600);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* ── EXAM COVERAGE ── */
+    .exam-strip {
+      background: var(--stone-100);
+      border-top: 1px solid var(--stone-200);
+      border-bottom: 1px solid var(--stone-200);
+      padding: 2rem 5vw;
+    }
+
+    .exam-strip-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .exam-strip-label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--stone-400);
+      margin-bottom: 1rem;
+    }
+
+    .exam-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .exam-pill {
+      background: var(--warm-white);
+      border: 1px solid var(--stone-200);
+      color: var(--ink-soft);
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: calc(16.66% + 1rem);
+      right: calc(16.66% + 1rem);
+      height: 1px;
+      background: var(--stone-200);
+    }
+
+    .step {
+      text-align: center;
+      position: relative;
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      border: 2px solid var(--teal-light);
+      position: relative;
+      z-index: 1;
+    }
+
+    .step h3 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .step p {
+      font-size: 0.88rem;
+      color: var(--stone-600);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── FEATURES ── */
+    .features-bg {
+      background: var(--stone-100);
+      border-top: 1px solid var(--stone-200);
+      border-bottom: 1px solid var(--stone-200);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--stone-200);
+      border: 1px solid var(--stone-200);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .feature-cell {
+      background: var(--warm-white);
+      padding: 1.75rem 1.5rem;
+    }
+
+    .feature-cell h4 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 0.975rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .feature-cell h4::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .feature-cell p {
+      font-size: 0.85rem;
+      color: var(--stone-600);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    /* ── FINAL CTA ── */
+    .final-cta {
+      background: var(--ink);
+      color: var(--cream);
+      text-align: center;
+      padding: 5rem 5vw;
+    }
+
+    .final-cta .section-label {
+      color: #7DD8E4;
+    }
+
+    .final-cta .section-title {
+      color: var(--cream);
+    }
+
+    .final-cta .section-sub {
+      color: var(--stone-400);
+    }
+
+    .final-cta .form-row input {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.15);
+      color: var(--cream);
+    }
+    .final-cta .form-row input::placeholder { color: var(--stone-400); }
+    .final-cta .form-row input:focus { border-color: var(--teal); }
+
+    .final-cta .btn-primary {
+      background: var(--teal);
+    }
+    .final-cta .btn-primary:hover { background: #1D8FA0; }
+
+    .final-cta .form-note {
+      color: var(--stone-600);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--cream);
+      border-top: 1px solid var(--stone-200);
+      padding: 2.5rem 5vw;
+    }
+
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--stone-400);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--ink); }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--stone-400);
+    }
+
+    /* ── STICKY WAITLIST BAR ── */
+    .sticky-waitlist {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--ink);
+      color: var(--cream);
+      padding: 0.85rem 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      z-index: 20;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .sticky-waitlist.visible { transform: translateY(0); }
+    .sticky-waitlist p {
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+    .sticky-waitlist strong { color: #7DD8E4; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .diff-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .steps::before { display: none; }
+
+      .features-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .nav-hamburger { display: block; }
+      .nav-right .launch-badge,
+      .nav-right .btn-nav { display: none; }
+      .nav-right.open .launch-badge,
+      .nav-right.open .btn-nav {
+        display: flex;
+      }
+      .nav-right.open {
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        background: var(--cream);
+        border-bottom: 1px solid var(--stone-200);
+        padding: 1rem 5vw;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .sticky-waitlist p { font-size: 0.8rem; }
+    }
+
+    @media (max-width: 480px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .countdown { gap: 0.6rem; }
+      .cd-num { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar" role="banner">
+  Now accepting early signups — join <strong id="bar-count">students</strong> already on the waitlist.
+  <a href="#waitlist">Secure your spot →</a>
+</div>
+
+<!-- NAV -->
+<nav role="navigation" aria-label="Main navigation">
+  <a href="/" class="logo" aria-label="Skeletona home">Skelet<span>ona</span></a>
+  <div class="nav-right" id="nav-right">
+    <span class="launch-badge">Launching in ~2 months</span>
+    <a href="#waitlist" class="btn-nav">Join Waitlist</a>
+  </div>
+  <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" id="hamburger">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+      <rect y="4" width="22" height="2" rx="1" fill="currentColor"/>
+      <rect y="10" width="22" height="2" rx="1" fill="currentColor"/>
+      <rect y="16" width="22" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- HERO -->
+<main id="main">
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-eyebrow">AI-powered · NEET UG &amp; PG</div>
+  <h1 id="hero-heading">The <em>AI-native</em> way<br>to crack NEET.</h1>
+  <p class="hero-sub">
+    Skeletona combines adaptive learning, a conversational AI tutor, and a live question bank —
+    built for NEET UG, NEET PG, INICET, FMGE, and every exam in between.
+  </p>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown" id="countdown" aria-label="Countdown to launch" role="timer">
+    <div class="cd-unit">
+      <span class="cd-num" id="cd-days">—</span>
+      <span class="cd-label">Days</span>
+    </div>
+    <span class="cd-sep" aria-hidden="true">:</span>
+    <div class="cd-unit">
+      <span class="cd-num" id="cd-hours">—</span>
+      <span class="cd-label">Hours</span>
+    </div>
+    <span class="cd-sep" aria-hidden="true">:</span>
+    <div class="cd-unit">
+      <span class="cd-num" id="cd-mins">—</span>
+      <span class="cd-label">Minutes</span>
+    </div>
+    <span class="cd-sep" aria-hidden="true">:</span>
+    <div class="cd-unit">
+      <span class="cd-num" id="cd-secs">—</span>
+      <span class="cd-label">Seconds</span>
+    </div>
+  </div>
+
+  <!-- WAITLIST FORM -->
+  <div class="waitlist-form-wrap" id="waitlist">
+    <form id="hero-form" novalidate>
+      <div class="form-row">
+        <input type="text" name="name" id="hero-name" placeholder="Your name" required autocomplete="name" />
+        <input type="email" name="email" id="hero-email" placeholder="Email address" required autocomplete="email" />
+        <input type="tel" name="phone" id="hero-phone" placeholder="Phone (optional)" autocomplete="tel" />
+      </div>
+      <button type="submit" class="btn-primary" id="hero-submit">Join the Waitlist →</button>
+      <p class="form-note">No spam. We'll only reach out when Skeletona is ready.</p>
+    </form>
+    <div class="form-success" id="hero-success" role="alert">
+      <span class="success-icon">✓</span>
+      <strong>You're on the list.</strong>
+      <p>We'll reach out as soon as Skeletona opens its doors.</p>
+    </div>
+    <p class="signup-count"><span id="hero-count">471</span> students already signed up</p>
+  </div>
+</section>
+
+<!-- WHAT MAKES IT DIFFERENT -->
+<section aria-labelledby="diff-heading" style="background: var(--stone-100); border-top: 1px solid var(--stone-200);">
+  <p class="section-label">Why Skeletona</p>
+  <h2 class="section-title" id="diff-heading">Not another Q-bank.<br>A learning system.</h2>
+  <p class="section-sub">Most platforms give you a question pool and leave you to figure out the rest. Skeletona thinks with you.</p>
+  <div class="diff-grid">
+    <div class="diff-card">
+      <div class="diff-icon" aria-hidden="true">⟳</div>
+      <h3>Adaptive Path</h3>
+      <p>AI tracks every answer, maps your weak areas across subjects, and rebuilds your daily study schedule — automatically. No static timetables you'll never follow.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-icon" aria-hidden="true">◎</div>
+      <h3>AI Tutor</h3>
+      <p>Ask any question from any concept and get a clinician-level explanation, not just the correct option. Like having a senior doctor sitting next to you.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-icon" aria-hidden="true">⬡</div>
+      <h3>Live Question Bank</h3>
+      <p>Questions are AI-generated and continuously refreshed — so you never memorise a paper. Every session is genuinely different.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXAM COVERAGE -->
+<div class="exam-strip">
+  <div class="exam-strip-inner">
+    <p class="exam-strip-label">Covering every major medical entrance exam</p>
+    <div class="exam-pills" role="list">
+      <span class="exam-pill" role="listitem">NEET UG</span>
+      <span class="exam-pill" role="listitem">NEET PG</span>
+      <span class="exam-pill" role="listitem">INICET</span>
+      <span class="exam-pill" role="listitem">JIPMER</span>
+      <span class="exam-pill" role="listitem">FMGE</span>
+      <span class="exam-pill" role="listitem">DNB CET</span>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section aria-labelledby="how-heading">
+  <p class="section-label">How it works</p>
+  <h2 class="section-title" id="how-heading">Simple to start.<br>Powerful over time.</h2>
+  <p class="section-sub">Skeletona gets smarter the more you use it — adapting to exactly where you are in your prep.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num" aria-hidden="true">1</div>
+      <h3>Tell us your exam</h3>
+      <p>Pick your target exam and your attempt date. Takes 30 seconds — no lengthy onboarding.</p>
+    </div>
+    <div class="step">
+      <div class="step-num" aria-hidden="true">2</div>
+      <h3>AI builds your path</h3>
+      <p>Skeletona maps your starting point and lays out a personalised study plan — subject by subject, day by day.</p>
+    </div>
+    <div class="step">
+      <div class="step-num" aria-hidden="true">3</div>
+      <h3>Practice, ask, improve</h3>
+      <p>Work through questions, ask your AI tutor anything, take mock tests. Your plan updates as you grow.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-bg" aria-labelledby="features-heading">
+  <p class="section-label">What's inside</p>
+  <h2 class="section-title" id="features-heading">Everything you need.<br>Nothing you don't.</h2>
+  <p class="section-sub">Built lean — no bloat, no dark patterns, no endless notifications. Just what helps you study.</p>
+  <div class="features-grid" role="list">
+    <div class="feature-cell" role="listitem">
+      <h4>Adaptive question sequences</h4>
+      <p>Questions scale in difficulty based on your live performance, not a fixed syllabus order.</p>
+    </div>
+    <div class="feature-cell" role="listitem">
+      <h4>AI doubt resolution</h4>
+      <p>Stuck on a concept? Ask in plain language and get a step-by-step clinical explanation.</p>
+    </div>
+    <div class="feature-cell" role="listitem">
+      <h4>Full-length mock tests</h4>
+      <p>Timed, exam-pattern simulations across NEET UG, PG, INICET, FMGE, and more.</p>
+    </div>
+    <div class="feature-cell" role="listitem">
+      <h4>Performance analytics</h4>
+      <p>See exactly which topics are costing you marks — and how fast you're closing the gap.</p>
+    </div>
+    <div class="feature-cell" role="listitem">
+      <h4>Subject-wise deep dives</h4>
+      <p>Isolate any subject or system and drill it intensively when you need to.</p>
+    </div>
+    <div class="feature-cell" role="listitem">
+      <h4>Spaced repetition engine</h4>
+      <p>Skeletona resurfaces concepts at exactly the right interval so nothing slips from memory.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" aria-labelledby="cta-heading">
+  <p class="section-label">Early access</p>
+  <h2 class="section-title" id="cta-heading">Be among the first<br>500 students in.</h2>
+  <p class="section-sub">Early access members get founding pricing, locked in forever — and the chance to shape what Skeletona becomes.</p>
+  <div class="waitlist-form-wrap">
+    <form id="cta-form" novalidate>
+      <div class="form-row">
+        <input type="text" name="name" id="cta-name" placeholder="Your name" required autocomplete="name" />
+        <input type="email" name="email" id="cta-email" placeholder="Email address" required autocomplete="email" />
+        <input type="tel" name="phone" id="cta-phone" placeholder="Phone (optional)" autocomplete="tel" />
+      </div>
+      <button type="submit" class="btn-primary" id="cta-submit">Secure my spot →</button>
+      <p class="form-note" style="color: var(--stone-600);">No spam. You'll only hear from us when we're ready to open the doors.</p>
+    </form>
+    <div class="form-success" id="cta-success" role="alert" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12);">
+      <span class="success-icon">✓</span>
+      <strong style="color: var(--cream);">You're on the list.</strong>
+      <p style="color: var(--stone-400);">We'll reach out as soon as Skeletona opens its doors.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="logo" style="font-size: 1.1rem;" aria-label="Skeletona home">Skelet<span>ona</span></a>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="#">About</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="https://twitter.com" rel="noopener noreferrer" target="_blank">Twitter / X</a>
+      <a href="https://instagram.com" rel="noopener noreferrer" target="_blank">Instagram</a>
+    </nav>
+    <p class="footer-copy">© 2026 Skeletona. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- STICKY BOTTOM BAR -->
+<div class="sticky-waitlist" id="sticky-waitlist" role="complementary" aria-label="Sticky waitlist signup">
+  <p>Skeletona launches in ~2 months. <strong>Join the waitlist</strong> — it's free.</p>
+  <a href="#waitlist" class="btn-nav" style="white-space: nowrap; font-size: 0.85rem; padding: 0.45rem 1rem;">Join now →</a>
+</div>
+
+<script>
+  /* ── HAMBURGER ── */
+  const hamburger = document.getElementById('hamburger');
+  const navRight = document.getElementById('nav-right');
+  hamburger.addEventListener('click', function() {
+    const open = navRight.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', open);
+  });
+
+  /* ── LIVE COUNT FROM API ── */
+  fetch('/api/waitlist')
+    .then(r => r.json())
+    .then(data => {
+      if (data.count > 0) {
+        const display = data.count.toLocaleString('en-IN');
+        const barCount = document.getElementById('bar-count');
+        const heroCount = document.getElementById('hero-count');
+        if (barCount) barCount.textContent = display + ' students';
+        if (heroCount) heroCount.textContent = display;
+      }
+    })
+    .catch(() => {}); // silent fallback — static numbers stay visible
+
+  /* ── COUNTDOWN ── */
+  const LAUNCH = new Date('2026-09-01T00:00:00+05:30');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function tick() {
+    const diff = LAUNCH - new Date();
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML =
+        '<div style="font-family:Lora,serif;font-size:1.5rem;font-weight:600;color:var(--teal)">We\'re live — welcome to Skeletona.</div>';
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent = pad(d);
+    document.getElementById('cd-hours').textContent = pad(h);
+    document.getElementById('cd-mins').textContent = pad(m);
+    document.getElementById('cd-secs').textContent = pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  /* ── STICKY BAR ── */
+  const hero = document.querySelector('.hero');
+  const stickyBar = document.getElementById('sticky-waitlist');
+  if (hero && stickyBar) {
+    const obs = new IntersectionObserver(
+      function(entries) { stickyBar.classList.toggle('visible', !entries[0].isIntersecting); },
+      { threshold: 0 }
+    );
+    obs.observe(hero);
+  }
+
+  /* ── FORM SUBMIT ── */
+  async function submitWaitlist(e, formId, successId, submitId) {
+    e.preventDefault();
+    const form = document.getElementById(formId);
+    const success = document.getElementById(successId);
+    const submitBtn = document.getElementById(submitId);
+
+    const name = form.querySelector('[name="name"]').value.trim();
+    const email = form.querySelector('[name="email"]').value.trim();
+    const phone = form.querySelector('[name="phone"]').value.trim();
+
+    if (!name) { form.querySelector('[name="name"]').focus(); return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      form.querySelector('[name="email"]').focus(); return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Joining…';
+
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        form.style.display = 'none';
+        success.style.display = 'flex';
+        // update counts
+        if (data.position) {
+          const display = data.position.toLocaleString('en-IN');
+          const barCount = document.getElementById('bar-count');
+          const heroCount = document.getElementById('hero-count');
+          if (barCount) barCount.textContent = display + ' students';
+          if (heroCount) heroCount.textContent = display;
+        }
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Try again';
+      }
+    } catch {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Try again';
+    }
+  }
+
+  document.getElementById('hero-form').addEventListener('submit', function(e) {
+    submitWaitlist(e, 'hero-form', 'hero-success', 'hero-submit');
+  });
+  document.getElementById('cta-form').addEventListener('submit', function(e) {
+    submitWaitlist(e, 'cta-form', 'cta-success', 'cta-submit');
+  });
+</script>
+</body>
+</html>

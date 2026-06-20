@@ -1,0 +1,14 @@
+{
+  "name": "skeletona-landing",
+  "version": "0.1.0",
+  "description": "Skeletona — AI-powered NEET prep, coming soon",
+  "private": true,
+  "scripts": {
+    "dev": "vite --open",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.0.16"
+  }
+}
